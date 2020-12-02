@@ -1,0 +1,83 @@
+1) copier les fichier source des fonctions min et max 
+min.c min.h & max.c max.h  avec la comande cp 
+
+2)compiler les fichier sans l'edition du lien 
+gcc -c max.c min.c 
+
+3) creer la bibliothèque statique liboulis.a
+ar -rc  liboustils.a min.o max.o
+
+ar -r liboustils.a min.o max.o permet de remplacer les objets si ils existent deja dans cette bibiothèque 
+
+4) ar -t liboustils.a pour verifier si on a bien les fichiers objets dedans 
+
+5)ranlib liboustils.a
+cette comande sert à cree un index des ressources presenté dans la bibiothèque liboustils pour accélérer substantiellement la phase d'édition de liens 
+
+6) le code du main.c 
+
+7) mkdir /opt/include
+   mkdir /opt/lib
+
+8)deplacer les code source max et min dans include et liboutils.a dans lib
+
+sudo mv  ~/Desktop/lab8/liboustils.a /opt/lib/
+sudo mv  ~/Desktop/lab8/max.h /opt/include/
+sudo mv  ~/Desktop/lab8/min.h /opt/include/
+
+9) on supprime les fichier objet.o et max et min .c
+compilation du programme main.c en appelant la bibiothèqueliboutils.a 
+
+9)gcc main.c -L/opt/lib -I/opt/include -loustils -o mainexecute
+
+10)./mainexecute
+affichage:
+le max est  :19
+ le min est : 1
+
+11)on copie le vac.c dans lab8 
+puis on le deplace dans /opt/lib 
+puis on rentre sudo ar r liboustils.a var.o a fin  de deplacer le fichier var.o dans liboustils.a
+
+12) pour verifier la présence du fichier var.o dans la bibliotheque on tappe la commande suivante: ar -t liboustils.a 
+on affiche : 
+min.o
+max.o
+var.o
+
+13) nm -s liboustils.a
+
+on affiche : 
+Archive index:
+min in min.o
+max in max.o
+variance in var.o
+
+min.o:
+0000000000000000 T min
+
+max.o:
+0000000000000000 T max
+
+var.o:
+                 U _GLOBAL_OFFSET_TABLE_
+                 U printf
+0000000000000000 T variance
+
+on a bien les .OBJET des fonctions 
+
+14) tester le vac.c dans le main.c 
+ gcc main.c -L/opt/lib -I/opt/include -loustils -o mainexecute 
+puis on affiche le resultat avec : ./mainexecute
+
+
+15)utiliser la bibliothèque math 
+ gcc -Wall main.c -L/opt/lib -I/opt/include -loutils -lm -o application.exe
+
+16) ./application.exe
+la moyenne est : 11.428572
+ la variance est :34.816326
+ la valeur arrondie de la variance est : pour floor: 34.000000
+ pour ceil est :  35.000000
+
+      
